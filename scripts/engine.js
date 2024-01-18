@@ -18,7 +18,12 @@ const state ={
     },    
 };
 
-const pathImages = "./assets/icons/"
+const playerSides = {
+    player1: "player-field-card",
+    computer: "computer-field-card",
+};
+
+const pathImages = "./assets/icons/";
 
 const cardData = [
 {
@@ -32,24 +37,32 @@ const cardData = [
 {
     id:1,
     name: "Mago Negro",
-    type: "Paper",
-    img: `${pathImages}dragon.png`,
-    WinOf: [1],
-    LoserOf: [2],
+    type: "Rock",
+    img: `${pathImages}magician.png`,
+    WinOf: [2],
+    LoserOf: [0],
 },
 {
-    id:3,
-    name: "Dragão Branco de Olhos Azuis",
-    type: "Paper",
-    img: `${pathImages}dragon.png`,
-    WinOf: [1],
-    LoserOf: [2],
+    id:2,
+    name: "Exodia",
+    type: "Scissors",
+    img: `${pathImages}exodia.png`,
+    WinOf: [0],
+    LoserOf: [1],
 }
 ]
 
+async function drawCards(cardNumbers, fieldSide){
+    for(let i=0; i<cardNumbers; i++){
+        const randomIdCard = await getRandomCardId();
+        const cardImage = await createCardImage(randomIdCard, fieldSide);
+    }
+}
+
 
 function init(){
-
+    drawCards(5, "player");
+    drawCards(5, "computer");
 }
 
 init();
