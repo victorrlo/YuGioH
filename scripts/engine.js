@@ -15,9 +15,38 @@ const state ={
     },
     actions:{
         button: document.getElementById("next-duel"),
-    }
-    
+    },    
 };
+
+const pathImages = "./assets/icons/"
+
+const cardData = [
+{
+    id:0,
+    name: "Dragão Branco de Olhos Azuis",
+    type: "Paper",
+    img: `${pathImages}dragon.png`,
+    WinOf: [1],
+    LoserOf: [2],
+},
+{
+    id:1,
+    name: "Mago Negro",
+    type: "Paper",
+    img: `${pathImages}dragon.png`,
+    WinOf: [1],
+    LoserOf: [2],
+},
+{
+    id:3,
+    name: "Dragão Branco de Olhos Azuis",
+    type: "Paper",
+    img: `${pathImages}dragon.png`,
+    WinOf: [1],
+    LoserOf: [2],
+}
+]
+
 
 function init(){
 
