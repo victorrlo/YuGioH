@@ -86,18 +86,30 @@ async function setCardsField(cardId){
     state.fieldCards.player.style.display = "block";
     state.fieldCards.computer.style.display = "block";
 
+    hiddenCardDetails()
+
     state.fieldCards.player.src = cardData[cardId].img;
     state.fieldCards.computer.src = cardData[computerCardId].img;
 
     let duelResults = await checkDuelResults(cardId, computerCardId);
 
-    // await updateScore();
+    await updateScore();
     await drawButton(duelResults);
 }
 
+async function hiddenCardDetails(){
+    state.cardSprites.avatar.src = "";
+    state.cardSprites.name.innerText = "";
+    state.cardSprites.type.innerText = "";
+}
+
 async function drawButton(text){
-    state.actions.button.innerText = text;
+    state.actions.button.innerText = text.toUpperCase();
     state.actions.button.style.display = "block";
+}
+
+async function updateScore(){
+    state.score.scoreBox.innerText = `Vitórias: ${state.score.playerScore} | Derrotas: ${state.score.computerScore}`
 }
 
 async function checkDuelResults(playerCardId, computerCardId){
@@ -112,8 +124,9 @@ async function checkDuelResults(playerCardId, computerCardId){
 
     if(playerCard.LoserOf.includes(computerCardId)){
         duelResults = "Perdeu";
-        state.score.playerScore--;
+        state.score.computerScore++;
     }
+    await playAudio(duelResults);
 
     return duelResults;
 }
@@ -143,10 +156,31 @@ async function drawCards(cardNumbers, fieldSide){
     }
 }
 
+async function resetDuel(){
+    state.cardSprites.avatar.src = "";
+    state.actions.button.style.display = "none";
+
+    state.fieldCards.player.style.display = "none";
+    state.fieldCards.computer.style.display = "none";
+
+    init();
+
+}
+
+async function playAudio(status){
+    const audio = new Audio(`./assets/audios/${status}.wav`);
+    audio.play();
+}
 
 function init(){
+    state.fieldCards.player.style.display = "none";
+    state.fieldCards.computer.style.display = "none";
+
     drawCards(5, "player-cards");
     drawCards(5, "computer-cards");
+
+    const bgm = document.getElementById("bgm");
+    bgm.play();
 }
 
 init();
