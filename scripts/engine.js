@@ -19,8 +19,8 @@ const state ={
 };
 
 const playerSides = {
-    player1: "player-field-card",
-    computer: "computer-field-card",
+    player1: "player-cards",
+    computer: "computer-cards",
 };
 
 const pathImages = "./assets/icons/";
@@ -53,7 +53,7 @@ const cardData = [
 ]
 
 async function getRandomCardId(){
-    const randomIndex = Math.floor(random() * cardData.length);
+    const randomIndex = Math.floor(Math.random() * cardData.length);
     return cardData[randomIndex].id;
 }
 
@@ -88,8 +88,8 @@ async function drawCards(cardNumbers, fieldSide){
 
 
 function init(){
-    drawCards(5, "player");
-    drawCards(5, "computer");
+    drawCards(5, "player-cards");
+    drawCards(5, "computer-cards");
 }
 
 init();
