@@ -6,8 +6,8 @@ const state ={
     },
     cardSprites:{
         avatar: document.getElementById("card-image"),
-        avatar: document.getElementById("card-name"),
-        avatar: document.getElementById("card-type"),
+        name: document.getElementById("card-name"),
+        type: document.getElementById("card-type"),
     },
     fieldCards:{
         player: document.getElementById("player-field-card"),
@@ -29,7 +29,7 @@ const cardData = [
 {
     id:0,
     name: "Dragão Branco de Olhos Azuis",
-    type: "Paper",
+    type: "Papel",
     img: `${pathImages}dragon.png`,
     WinOf: [1],
     LoserOf: [2],
@@ -37,7 +37,7 @@ const cardData = [
 {
     id:1,
     name: "Mago Negro",
-    type: "Rock",
+    type: "Pedra",
     img: `${pathImages}magician.png`,
     WinOf: [2],
     LoserOf: [0],
@@ -45,7 +45,7 @@ const cardData = [
 {
     id:2,
     name: "Exodia",
-    type: "Scissors",
+    type: "Tesoura",
     img: `${pathImages}exodia.png`,
     WinOf: [0],
     LoserOf: [1],
@@ -65,16 +65,24 @@ async function createCardImage(IdCard, fieldSide){
     cardImage.classList.add("card");
 
     if(fieldSide === playerSides.player1){
+        cardImage.addEventListener("mouseover", ()=>{
+            drawSelectCard(IdCard);
+        });
         cardImage.addEventListener("click", ()=>{
             setCardsField(cardImage.getAttribute("data-id"));
         });
+        
     }
 
-    cardImage.addEventListener("mouseover", ()=>{
-        drawSelectCard(IdCard);
-    });
+  
 
     return cardImage;
+}
+
+async function drawSelectCard(index){
+    state.cardSprites.avatar.src = cardData[index].img;
+    state.cardSprites.name.innerText = cardData[index].name;
+    state.cardSprites.type.innerText = "Tipo: "+cardData[index].type;
 }
 
 async function drawCards(cardNumbers, fieldSide){
